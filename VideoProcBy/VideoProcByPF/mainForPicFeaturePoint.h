@@ -11,7 +11,7 @@ int mainForPicFeaturePoint()
 	CvCapture* video=NULL;
 	IplImage* frame=NULL;
 	IplImage *raw=NULL;
-	string fileName="../real2.avi";
+	string fileName="../level.avi";
 
 	char readVideo='y';
 	cout<<"read video[y] or read camera[any key]";
@@ -98,6 +98,7 @@ int mainForPicFeaturePoint()
 
 		data.seekg(0);
 		data<<(int)(tracker.getMidPosi()-center.y)<<endl;
+		cout<<tracker.getMidPosi()-center.y<<endl;
 
 		cvShowImage("Video",raw);
 		cvResetImageROI( raw );
@@ -119,13 +120,20 @@ int mainForPicFeaturePoint()
 		}	
 		//cvReleaseImage( &frame );
 	}
-
+	try{
+	cvReleaseCapture( &video );
 	cvReleaseImage( &frame );
 	cvReleaseImage( &raw );
+	}
+	catch (cv::Exception& e )
+	{
+		cout<<e.msg;
+	}
 	//cvReleaseMemStorage(&storage);
 	fclose( file );
 	data.close();
 	cvWaitKey(0);
+	cout<<"press any key to exit"<<endl;
 	return 0;
 };
 

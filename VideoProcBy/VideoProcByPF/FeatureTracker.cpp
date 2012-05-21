@@ -9,6 +9,7 @@ FeatureTracker::FeatureTracker(void)
 
 FeatureTracker::~FeatureTracker(void)
 {
+	try{
 	if(eig_image!=NULL)
 		cvReleaseImage(&eig_image);
 
@@ -17,6 +18,11 @@ FeatureTracker::~FeatureTracker(void)
 
 	if(tmp!=NULL)
 		cvReleaseImage(&tmp);
+	}
+	catch(cv::Exception& e)
+	{
+		 cout<<e.msg;
+	}
 }
 void FeatureTracker::initialize(IplImage* raw)
 {
@@ -183,6 +189,7 @@ void FeatureTracker::getPointLine(IplImage* frame,CvPoint& point,CvMemStorage* s
 		{
 			posi.x=posi.x*(1-ALPHA_RESULT)+prePosi.x*ALPHA_RESULT;
 			posi.y=posi.y*(1-ALPHA_RESULT)+prePosi.y*ALPHA_RESULT;
+			//可改，越高--允许的变动范围越小
 			if(abs(posi.x-prePosi.x)>frame->width/20 || abs(posi.y-prePosi.y)>frame->height/20)
 			{
 				posi.x=prePosi.x;
@@ -225,10 +232,11 @@ void FeatureTracker::getPointPic(IplImage* frame,CvPoint& point,int Thresh )
 		{
 			posi.x=posi.x*(1-ALPHA_RESULT)+prePosi.x*ALPHA_RESULT;
 			posi.y=posi.y*(1-ALPHA_RESULT)+prePosi.y*ALPHA_RESULT;
-			if(abs(posi.x-prePosi.x)>frame->width/20 || abs(posi.y-prePosi.y)>frame->height/20)
+			if(abs(posi.y-prePosi.y)>frame->height/50 )
 			{
 				posi.x=prePosi.x;
 				posi.y=prePosi.y;
+				cout<<"too big var\t"<<abs(posi.y-prePosi.y)<<endl;
 			}
 		}
 		prePosi=posi;

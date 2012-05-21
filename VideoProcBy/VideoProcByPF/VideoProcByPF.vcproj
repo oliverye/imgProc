@@ -194,6 +194,10 @@
 				RelativePath=".\utils.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\utils.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -254,10 +258,6 @@
 			</File>
 			<File
 				RelativePath=".\Tracker.h"
-				>
-			</File>
-			<File
-				RelativePath=".\utils.h"
 				>
 			</File>
 		</Filter>

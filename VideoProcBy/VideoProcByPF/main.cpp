@@ -16,6 +16,6 @@ int main()
 		case 5:mainForFeaturePoint();break;
 		case 6:mainForPicFeaturePoint();break;
 	}
-
+	cout<<"end";
 	return 0;
 }
